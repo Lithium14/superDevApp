@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { UsersService } from 'src/app/shared/services/users.service';
+import { Users } from '../../shared/models/users';
 
 @Component({
   selector: 'app-admin-moderation',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminModerationComponent implements OnInit {
 
-  constructor() { }
+  users: Users[] = [];
+  usersSubscription: Subscription;
+  constructor(private userService: UsersService) { }
+
+  displayedColumns: string[] = [
+    'id',
+    'lastName',
+    'firstName',
+    'groupe',
+];
+
 
   ngOnInit() {
+
+    this.usersSubscription = this.userService.userSubject.subscribe((data: Users[]) => {
+      this.users = data;
+    });
+
+    this.userService.emitUsers();
   }
 
+
+  ngOnDestroy(): void {
+    this.usersSubscription.unsubscribe();
+  }
 }
