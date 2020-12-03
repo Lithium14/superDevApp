@@ -1,3 +1,4 @@
+import { MatDialogModule, MatDialogRef  } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,6 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material/material.module';
 import { AdminUserFormComponent } from './pages/admin-user-form/admin-user-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { UserDiscountComponent } from './pages/user/user-discount/user-discount.component';
+import { CommandesComponent } from './pages/commandes/commandes.component';
+import { CommandeCardComponent } from './components/commande-card/commande-card.component';
+import { CommandeDetailComponent } from './components/commande-detail/commande-detail.component';
+
+
 
 
 
@@ -16,16 +25,29 @@ import { AdminUserFormComponent } from './pages/admin-user-form/admin-user-form.
   declarations: [
     AppComponent,
     AdminModerationComponent,
-    AdminUserFormComponent
+    AdminUserFormComponent,
+    NavbarComponent,
+    UserDiscountComponent,
+    CommandesComponent,
+    CommandeCardComponent,
+    CommandeDetailComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    }
+  ],
+  entryComponents: [AdminUserFormComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

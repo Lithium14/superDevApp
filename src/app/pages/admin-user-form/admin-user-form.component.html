@@ -1,1 +1,56 @@
-<p>admin-user-form works!</p>
+<form
+  [formGroup]="userForm"
+  (ngSubmit)="onUserFormSubmit()"
+  class="container"
+>
+
+  <div class="title">
+    <h2>NEW USER</h2>
+      <mat-icon (click)="closeForm()" class="close_dialog">close</mat-icon>
+  </div>
+
+
+  <div class="Line">
+
+      <mat-form-field class="field-width"  >
+        <mat-label>First name</mat-label>
+        <input
+        formControlName="firstname"
+        matInput placeholder="Your Firstname"
+
+        >
+      </mat-form-field>
+
+      <mat-form-field class="field-width">
+        <input
+        type="text"
+        formControlName="lastname"
+        matInput placeholder="Your LastName">
+      </mat-form-field>
+
+      <mat-select placeholder="Selectionnez un groupe" formControlName="group">
+        <mat-option value="a">ACDF</mat-option>
+        <mat-option value="b">VSLIS</mat-option>
+        <mat-option value="c">VEPSLS</mat-option>
+        <mat-option value="d">PSLI</mat-option>
+        <mat-option value="d">SLIS</mat-option>
+        <mat-option value="d">VPOSS</mat-option>
+        <mat-option value="d">NEPLI</mat-option>
+      </mat-select>
+
+  </div>
+
+
+
+
+  <!-- Validation et reset du formulaire  -->
+  <div class="example-button-row">
+    <button mat-raised-button type="submit">Créer</button>
+
+    <button type="button" mat-raised-button (click)="onReset()">Reset</button>
+  </div>
+
+</form>
+
+
+

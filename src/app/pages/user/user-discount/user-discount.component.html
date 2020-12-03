@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Profitez de vos remises suivant votre groupe !</h1>
+  <table>
+    <div *ngFor="let discount of discounts">
+      <tr>Groupe</tr>
+      <td>{{ discount.groupe }}</td>
+      <tr>Pourcentage de réduction</tr>
+      <td>{{discount['discount-percent']}} %</td>
+      <hr>
+    </div>
+
+  </table>
+</div>

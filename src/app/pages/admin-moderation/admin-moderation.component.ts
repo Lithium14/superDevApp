@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { AdminUserFormComponent } from './../admin-user-form/admin-user-form.component';
+import { Component, Input, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { Users } from '../../shared/models/users';
+import { User } from '../../shared/models/user';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-moderation',
@@ -10,29 +11,52 @@ import { Users } from '../../shared/models/users';
 })
 export class AdminModerationComponent implements OnInit {
 
-  users: Users[] = [];
-  usersSubscription: Subscription;
-  constructor(private userService: UsersService) { }
+  @Input() user: User;
+  users: User[] = [];
+  constructor(private userService: UsersService,
+              public dialog: MatDialog,
+              public dialogRef: MatDialogRef<AdminUserFormComponent>) { }
+
+
 
   displayedColumns: string[] = [
     'id',
     'lastName',
     'firstName',
     'groupe',
-];
+    'delete',
+    'edit'
+  ];
 
 
   ngOnInit() {
+    this.getUsers();
+  }
 
-    this.usersSubscription = this.userService.userSubject.subscribe((data: Users[]) => {
-      this.users = data;
+  getUsers() {
+    this.userService.getUserJson().subscribe((data: User[]) => this.users = data);
+  }
+
+  showModal() {
+    const dialogRef = this.dialog.open(AdminUserFormComponent, {
+        width: '800px',
+        height: '400px',
     });
-
-    this.userService.emitUsers();
+    dialogRef.afterClosed().subscribe(() => this.userService.getUserJson());
   }
 
+  deleteUser(id) {
+    this.userService.deleteUser(id);
 
-  ngOnDestroy(): void {
-    this.usersSubscription.unsubscribe();
   }
+
+  editUser() {
+    const dialogRef = this.dialog.open(AdminUserFormComponent, {
+      data: this.user,
+      width: '800px',
+      height: '400px',
+    });
+    dialogRef.afterClosed().subscribe(() => this.userService.getUserJson());
+  }
+
 }
