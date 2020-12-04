@@ -24,8 +24,7 @@ export class UsersService {
    }
 
   public deleteUser(index) {
-    this.users.splice(index, 1);
-
+    return this.http.delete(index);
   }
 
   public updateUser(user: User, index) {

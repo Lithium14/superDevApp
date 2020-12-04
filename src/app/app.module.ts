@@ -1,4 +1,4 @@
-import { MatDialogModule, MatDialogRef  } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,6 +45,9 @@ import { CommandeDetailComponent } from './components/commande-detail/commande-d
     {
       provide: MatDialogRef,
       useValue: {}
+    },
+    {
+      provide: MAT_DIALOG_DATA, useValue: []
     }
   ],
   entryComponents: [AdminUserFormComponent],

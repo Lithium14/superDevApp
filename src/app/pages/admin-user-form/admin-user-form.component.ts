@@ -1,6 +1,6 @@
+import { SnackbarService } from './../../shared/services/snackbar.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { UsersService } from '../../shared/services/users.service';
 import { User } from '../../shared/models/user';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -14,16 +14,20 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class AdminUserFormComponent implements OnInit {
 
-
-  constructor(private formBuilder: FormBuilder, private userService: UsersService, public dialogRef: MatDialogRef<AdminUserFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any
-               ) {
-                this.userForm = this.formBuilder.group({
-                  firstname: ['', Validators.required],
-                  lastname: ['', Validators.required],
-                  group: ['', Validators.required]
-                });
-               }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UsersService,
+    public dialogRef: MatDialogRef<AdminUserFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: User,
+    private snackBar: SnackbarService
+  ) {
+    this.userForm = this.formBuilder.group({
+      id: ['', Validators.required],
+      'first-name': ['', Validators.required],
+      'last-name': ['', Validators.required],
+      groupe: ['', Validators.required]
+    });
+  }
 
   userForm: FormGroup;
   users: User[] = [];
@@ -31,14 +35,22 @@ export class AdminUserFormComponent implements OnInit {
   editMode = false;
   indexToRemove;
   indexToUpdate;
+  libelle = 'Créer';
+
+
 
   ngOnInit() {
+    this.userForm.patchValue({
+      id: this.data.id,
+      firstname: this.data['first-name'],
+      lastname: this.data['last-name'],
+      groupe: this.data.groupe
+    });
 
-    this.getGroupOfUser();
-  }
-
-  getGroupOfUser() {
-    this.userService.getUserJson().subscribe((data: User[]) => this.users = data);
+    if (this.data.id) {
+      this.libelle = 'Modifier';
+      this.editMode = false;
+    }
   }
 
 
@@ -57,5 +69,17 @@ export class AdminUserFormComponent implements OnInit {
 
   closeForm() {
     this.dialogRef.close();
+  }
+
+  editUser(user: User) {
+    this.editMode = true;
+
+
+    const index = this.users.findIndex(userEl => {
+      if (userEl === user) {
+        return true;
+      }
+    });
+
   }
 }

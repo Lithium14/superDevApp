@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../shared/services/snackbar.service';
 import { AdminUserFormComponent } from './../admin-user-form/admin-user-form.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/shared/services/users.service';
@@ -13,9 +14,12 @@ export class AdminModerationComponent implements OnInit {
 
   @Input() user: User;
   users: User[] = [];
-  constructor(private userService: UsersService,
-              public dialog: MatDialog,
-              public dialogRef: MatDialogRef<AdminUserFormComponent>) { }
+  constructor(
+    private userService: UsersService,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<AdminUserFormComponent>,
+    private snackBar: SnackbarService
+  ) { }
 
 
 
@@ -47,12 +51,12 @@ export class AdminModerationComponent implements OnInit {
 
   deleteUser(id) {
     this.userService.deleteUser(id);
-
+    this.users.splice(id, 1);
   }
 
   editUser() {
     const dialogRef = this.dialog.open(AdminUserFormComponent, {
-      data: this.user,
+      data: this.users,
       width: '800px',
       height: '400px',
     });
