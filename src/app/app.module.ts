@@ -21,6 +21,7 @@ import { CommandeDetailComponent } from './components/commande-detail/commande-d
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { CommandeDetailComponent } from './components/commande-detail/commande-d
     UserDiscountComponent,
     CommandesComponent,
     CommandeCardComponent,
-    CommandeDetailComponent
+    CommandeDetailComponent,
+
   ],
   imports: [
     BrowserModule,

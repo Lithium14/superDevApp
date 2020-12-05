@@ -1,6 +1,7 @@
 import { Commandes } from './../../shared/models/commandes';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+
 @Component({
   selector: 'app-commande-card',
   templateUrl: './commande-card.component.html',

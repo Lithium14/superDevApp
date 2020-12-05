@@ -1,16 +1,14 @@
-<div class="container">
-  <div *ngFor="let commande of commandes; let i = index">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>N° de commande : {{commande._id}}</mat-card-title>
-        <mat-card-subtitle>Identifiant de l'uitilisateur : {{commande.userId}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-actions>
-        <button (click)="checkDetails(commande)">Voir plus de détail</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-
-
-</div>
+<mat-grid-list cols="3" rowHeight="3:1">
+  <mat-grid-tile *ngFor="let commande of commandes; let i = index" class="card-container">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>N° de commande : {{commande._id}}</mat-card-title>
+            <mat-card-subtitle>Identifiant de l'uitilisateur : {{commande.userId}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-raised-button (click)="checkDetails(commande,i)">Voir plus de détail</button>
+          </mat-card-actions>
+        </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

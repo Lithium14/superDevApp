@@ -20,7 +20,7 @@ export class UsersService {
 
 
   createUser(user: User) {
-    this.users.push(user);
+    return this.http.post('../../../assets/users.json', user);
    }
 
   public deleteUser(index) {

@@ -1,8 +1,4 @@
-import { User } from './../../shared/models/user';
-import { Product } from './../../shared/models/product';
-import { UsersService } from './../../shared/services/users.service';
 import { Commandes } from './../../shared/models/commandes';
-import { ProductService } from './../../shared/services/product.service';
 import { CommandesService } from './../../shared/services/commandes.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,31 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommandesComponent implements OnInit {
 
-
-  Commande: Commandes[];
-  products: Product[];
+  index: number;
+  commande: Commandes[];
   commandeDetail: Commandes;
-  users: User[];
-  constructor(private commandesService: CommandesService, private productService: ProductService,
-              private userService: UsersService) { }
+  constructor(private commandesService: CommandesService) { }
 
   ngOnInit() {
     this.getCommandes();
   }
 
   getCommandes() {
-    this.commandesService.getCommandeJson().subscribe((data: Commandes[]) => this.Commande = data);
+    this.commandesService.getCommandeJson().subscribe((data: Commandes[]) => {
+     this.commande = data;
+    });
   }
 
-  getProduct() {
-    this.productService.getProductJson().subscribe((data: Product[]) => this.products = data);
-  }
-
-  getUser() {
-    this.userService.getUserJson().subscribe((data: User[]) => this.users = data);
-  }
-
-  onCheckDetails(data: Commandes) {
+  onCheckDetails(data: any) {
     this.commandeDetail = data;
   }
+
+
 }

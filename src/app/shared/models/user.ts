@@ -1,5 +1,5 @@
 export class User {
-    public id: number;
+    public id: string;
     public 'first-name': string;
     public 'last-name': string;
     public groupe: string;

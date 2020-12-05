@@ -10,6 +10,7 @@ import { MatCardModule,
       } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -32,6 +33,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatCardModule,
     MatInputModule,
     MatToolbarModule,
+    MatGridListModule
 
    ],
   exports: [
@@ -44,6 +46,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatCardModule,
     MatInputModule,
     MatToolbarModule,
+    MatGridListModule
   ]
 })
 export class MaterialModule { }

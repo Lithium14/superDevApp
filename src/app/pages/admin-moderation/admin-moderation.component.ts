@@ -1,4 +1,4 @@
-import { SnackbarService } from './../../shared/services/snackbar.service';
+
 import { AdminUserFormComponent } from './../admin-user-form/admin-user-form.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/shared/services/users.service';
@@ -18,7 +18,6 @@ export class AdminModerationComponent implements OnInit {
     private userService: UsersService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AdminUserFormComponent>,
-    private snackBar: SnackbarService
   ) { }
 
 
@@ -56,7 +55,7 @@ export class AdminModerationComponent implements OnInit {
 
   editUser() {
     const dialogRef = this.dialog.open(AdminUserFormComponent, {
-      data: this.users,
+      data: this.user,
       width: '800px',
       height: '400px',
     });

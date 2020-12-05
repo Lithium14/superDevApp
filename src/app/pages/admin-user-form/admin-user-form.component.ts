@@ -1,4 +1,4 @@
-import { SnackbarService } from './../../shared/services/snackbar.service';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../shared/services/users.service';
@@ -19,7 +19,6 @@ export class AdminUserFormComponent implements OnInit {
     private userService: UsersService,
     public dialogRef: MatDialogRef<AdminUserFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
-    private snackBar: SnackbarService
   ) {
     this.userForm = this.formBuilder.group({
       id: ['', Validators.required],
@@ -46,7 +45,6 @@ export class AdminUserFormComponent implements OnInit {
       lastname: this.data['last-name'],
       groupe: this.data.groupe
     });
-
     if (this.data.id) {
       this.libelle = 'Modifier';
       this.editMode = false;
@@ -60,6 +58,7 @@ export class AdminUserFormComponent implements OnInit {
       this.userService.updateUser(newUser, this.indexToUpdate);
     } else {
       this.userService.createUser(newUser);
+      console.log(newUser, 'l\'utilisateur a été crée');
     }
   }
 
@@ -69,17 +68,5 @@ export class AdminUserFormComponent implements OnInit {
 
   closeForm() {
     this.dialogRef.close();
-  }
-
-  editUser(user: User) {
-    this.editMode = true;
-
-
-    const index = this.users.findIndex(userEl => {
-      if (userEl === user) {
-        return true;
-      }
-    });
-
   }
 }

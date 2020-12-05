@@ -1,6 +1,38 @@
 <div class="container">
-  <span>
-  </span>
-  <!-- <span>{{commande['_id']}}</span> -->
-  <span>{{product.id}}</span>
+
+  <!-- <Référénce de la facture un Produit par ligne avec : -->
+
+      <!-- référence  -->
+      <div *ngIf="commande">
+        <span>Référence : {{commande['_id']}}</span>
+      </div>
+
+
+        <!-- nom du produit -->
+        <div *ngFor="let data of commande.quotation; let i = index">
+          <div>
+            <span> Nom du Produit: {{data.productId}} </span>
+          </div>
+          <div>
+            <span>Quantité : {{ data.quantity}}</span>
+          </div>
+          <hr>
+        </div>
+        <!-- prix en bas de page -->
+
+        <!-- total HT -->
+        <div *ngIf="commande">
+          <span>Prix total HT : {{getPriceTotHT()}}</span>
+        </div>
+
+    <!-- total avec la remise client -->
+        <div *ngIf="commande">
+          <span>Total avec la remise : {{getPriceTotHT()}}</span>
+        </div>
+
+        <div *ngIf="commande">
+          <span>Prix Total TTC : {{getPriceWithTVA()}}</span>
+        </div>
+
+    <!-- total TTC  -->
 </div>
