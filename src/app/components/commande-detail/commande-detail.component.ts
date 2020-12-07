@@ -51,6 +51,7 @@ itemPrice;
   getPriceTotHT(index: number) {
     let priceTotal = 0;
     let searchItem;
+    const arr = [];
     for (let i = 0; i < this.products.length; i++) {
       searchItem = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
       priceTotal += this.commande.quotation[i].quantity * this.products[searchItem].price;
