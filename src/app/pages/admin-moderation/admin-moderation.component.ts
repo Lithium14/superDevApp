@@ -51,14 +51,18 @@ export class AdminModerationComponent implements OnInit {
   deleteUser(id) {
     this.userService.deleteUser(id);
     this.users.splice(id, 1);
+    console.log('l\'utilisateur a été supprimé');
   }
 
-  editUser() {
+  editUser(userObject) {
+    const index = this.users.findIndex((w) => w.id === userObject.idUser);
+    this.users[index] = userObject;
     const dialogRef = this.dialog.open(AdminUserFormComponent, {
-      data: this.user,
+      data: userObject,
       width: '800px',
       height: '400px',
     });
+    console.log(dialogRef);
     dialogRef.afterClosed().subscribe(() => this.userService.getUserJson());
   }
 

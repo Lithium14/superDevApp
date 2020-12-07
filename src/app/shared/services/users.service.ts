@@ -27,8 +27,8 @@ export class UsersService {
     return this.http.delete(index);
   }
 
-  public updateUser(user: User, index) {
-    this.users[index] = user;
-    }
+  public updateUser(user: User) {
+    this.http.put('../../../assets/users.json', user);
+  }
 
 }

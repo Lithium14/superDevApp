@@ -14,6 +14,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class AdminUserFormComponent implements OnInit {
 
+
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UsersService,
@@ -26,14 +28,12 @@ export class AdminUserFormComponent implements OnInit {
       'last-name': ['', Validators.required],
       groupe: ['', Validators.required]
     });
+
+
   }
 
   userForm: FormGroup;
-  users: User[] = [];
-  selectedValue: string;
   editMode = false;
-  indexToRemove;
-  indexToUpdate;
   libelle = 'Créer';
 
 
@@ -52,10 +52,11 @@ export class AdminUserFormComponent implements OnInit {
   }
 
 
-  onUserFormSubmit() {
+  onUserFormSubmit(id) {
     const newUser: User = this.userForm.value;
     if (this.editMode) {
-      this.userService.updateUser(newUser, this.indexToUpdate);
+      this.userService.updateUser(id, newUser);
+      console.log('L\'utilisateur a été modifié');
     } else {
       this.userService.createUser(newUser);
       console.log(newUser, 'l\'utilisateur a été crée');

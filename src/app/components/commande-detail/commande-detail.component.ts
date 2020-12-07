@@ -1,3 +1,4 @@
+import { CommandesService } from './../../shared/services/commandes.service';
 import { UsersService } from './../../shared/services/users.service';
 import { ProductService } from './../../shared/services/product.service';
 import { User } from './../../shared/models/user';
@@ -11,19 +12,24 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./commande-detail.component.scss']
 })
 export class CommandeDetailComponent implements OnInit {
-  constructor(private productService: ProductService, private userService: UsersService) { }
+  constructor(private productService: ProductService, private userService: UsersService, private cS: CommandesService) { }
 
 
   priceTotalHT: number;
+  commandes: Commandes[] = [];
   @Input() commande: Commandes;
   products: Product[];
   users: User[];
-  id: number;
+  searchQuantity;
+  first;
+  last;
+  idProduct;
+itemProduct;
+itemPrice;
   ngOnInit() {
     this.getProduct();
     this.getUser();
   }
-
 
   getProduct() {
     this.productService.getProductJson().subscribe((data: Product[]) => this.products = data);
@@ -33,24 +39,52 @@ export class CommandeDetailComponent implements OnInit {
     this.userService.getUserJson().subscribe((data: User[]) => this.users = data);
   }
 
-  getPriceTotHT() {
-    this.priceTotalHT = 0;
-    for (const price of this.commande.quotation) {
-      this.priceTotalHT += price.quantity;
+  getLastAndFirstName() {
+    const searchUser =  this.users.findIndex((x) => x.id === this.commande.userId );
+    if (searchUser >= 0) {
+      this.last = this.users[searchUser]['last-name'];
+      this.first = this.users[searchUser]['first-name'];
     }
-    return this.priceTotalHT;
+    return this.last + ' ' + this.first;
   }
 
-  getPriceWithRemise() {
+  getPriceTotHT(index: number) {
+    let priceTotal = 0;
+    let searchItem;
+    for (let i = 0; i < this.products.length; i++) {
+      searchItem = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
+      priceTotal += this.commande.quotation[i].quantity * this.products[searchItem].price;
+      console.log(priceTotal);
+    }
+
+    return priceTotal;
 
   }
 
-  getPriceWithTVA() {
-    let priceTot = this.getPriceTotHT();
-    priceTot = priceTot + this.getPriceTotHT() * 0.2;
-    return priceTot;
+  getProductByName() {
+    let searchPrice;
+    for (let i = 0; i < this.products.length; i++) {
+      searchPrice = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
+
+      this.idProduct = this.products[searchPrice].id;
+      this.itemProduct = this.products[searchPrice].item;
+      this.itemPrice = this.products[searchPrice].price;
+      return 'Référence : ' + this.idProduct + '\nNom du produit : '
+      + this.itemProduct + '\n ' + ' Prix : ' + this.itemPrice + ' Quantité : ' + this.commande.quotation[i].quantity;
+    }
 
   }
+
+  // getPriceWithRemise() {
+
+  // }
+
+  // getPriceWithTVA() {
+  //   let priceTot = this.getPriceTotHT();
+  //   priceTot = priceTot + this.getPriceTotHT() * 0.2;
+  //   return priceTot;
+
+  // }
 
 
 }

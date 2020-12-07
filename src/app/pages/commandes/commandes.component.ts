@@ -9,7 +9,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommandesComponent implements OnInit {
 
-  index: number;
   commande: Commandes[];
   commandeDetail: Commandes;
   constructor(private commandesService: CommandesService) { }
