@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { discountMock } from './../../../assets/discountMock.mock';
+import { Discount } from './../models/discount';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,9 +7,9 @@ import { Injectable } from '@angular/core';
 })
 export class DiscountService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
 
-  getDiscountJson() {
-    return this.httpClient.get('../../../assets/discount.json');
+  getAllDiscount(): Discount[] {
+    return discountMock;
   }
 }

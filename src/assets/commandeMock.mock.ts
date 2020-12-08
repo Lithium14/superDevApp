@@ -1,4 +1,6 @@
-export const commande = [{
+import { Commandes } from './../app/shared/models/commandes';
+
+export const commandeMock: Commandes[] = [{
     _id : 'cmd1',
     userId : 'BFFF8E3D-C004-4751-A31B-E73324265DA6',
     quotation : [

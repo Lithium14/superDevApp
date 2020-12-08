@@ -1,4 +1,6 @@
-export const discount = [
+import { Discount } from './../app/shared/models/discount';
+
+export const discountMock: Discount[] = [
   {
     groupe: 'ACDF',
     'discount-percent': 5

@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { productsMock } from './../../../assets/productsMock.mock';
+import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,9 +7,9 @@ import { Injectable } from '@angular/core';
 })
 export class ProductService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
 
-  getProductJson() {
-    return this.httpClient.get('../../../assets/products.json');
+  getAllProduct(): Product[] {
+    return productsMock;
   }
 }

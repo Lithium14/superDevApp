@@ -1,11 +1,13 @@
-export const products = [
+import { Product } from './../app/shared/models/product';
+
+export const productsMock: Product[] = [
   {
     id: '4472be1e',
     item: 'BT4-90-B',
     price: 287
   },
   {
-    id: 18811140,
+    id: '18811140',
     item: 'PSD200/30/2',
     price: 47
   },
@@ -70,7 +72,7 @@ export const products = [
     price: 1720
   },
   {
-    id: 20696730,
+    id: '20696730',
     item: 'ESCR8.0X320',
     price: 2885
   },
@@ -220,7 +222,7 @@ export const products = [
     price: 1214
   },
   {
-    id: 45887045,
+    id: '45887045',
     item: 'ESCRC8.0X300',
     price: 860
   },

@@ -1,3 +1,5 @@
+import { Discount } from './../../shared/models/discount';
+import { DiscountService } from './../../shared/services/discount.service';
 
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,6 +22,7 @@ export class AdminUserFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UsersService,
     public dialogRef: MatDialogRef<AdminUserFormComponent>,
+    private discountService: DiscountService,
     @Inject(MAT_DIALOG_DATA) public data: User,
   ) {
     this.userForm = this.formBuilder.group({
@@ -35,22 +38,30 @@ export class AdminUserFormComponent implements OnInit {
   userForm: FormGroup;
   editMode = false;
   libelle = 'Créer';
+  getGroupe: Discount[] = [];
+  defaultSelected = this.getGroupe[0];
 
 
 
   ngOnInit() {
-    this.userForm.patchValue({
-      id: this.data.id,
-      firstname: this.data['first-name'],
-      lastname: this.data['last-name'],
-      groupe: this.data.groupe
-    });
-    if (this.data.id) {
-      this.libelle = 'Modifier';
-      this.editMode = false;
-    }
+    this.getGroupeOfDiscount();
+
+    // this.userForm.patchValue({
+    //   id: this.data.id,
+    //   firstname: this.data['first-name'],
+    //   lastname: this.data['last-name'],
+    //   groupe: this.data.groupe
+    // });
+    // if (this.data.id) {
+    //   this.libelle = 'Modifier';
+    //   this.editMode = false;
+    // }
   }
 
+
+  getGroupeOfDiscount() {
+    this.getGroupe = this.discountService.getAllDiscount();
+  }
 
   onUserFormSubmit(id) {
     const newUser: User = this.userForm.value;
@@ -59,7 +70,7 @@ export class AdminUserFormComponent implements OnInit {
       console.log('L\'utilisateur a été modifié');
     } else {
       this.userService.createUser(newUser);
-      console.log(newUser, 'l\'utilisateur a été crée');
+
     }
   }
 

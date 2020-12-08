@@ -14,13 +14,12 @@ export class AdminModerationComponent implements OnInit {
 
   @Input() user: User;
   users: User[] = [];
+
   constructor(
     private userService: UsersService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AdminUserFormComponent>,
   ) { }
-
-
 
   displayedColumns: string[] = [
     'id',
@@ -37,20 +36,21 @@ export class AdminModerationComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUserJson().subscribe((data: User[]) => this.users = data);
+    this.users = this.userService.getUser();
   }
 
-  showModal() {
+  showModalForm() {
     const dialogRef = this.dialog.open(AdminUserFormComponent, {
         width: '800px',
         height: '400px',
     });
-    dialogRef.afterClosed().subscribe(() => this.userService.getUserJson());
+    dialogRef.afterClosed().subscribe(() => this.userService.getUser());
   }
 
-  deleteUser() {
-    this.userService.deleteUser(this.user.id);
-    console.log(`${this.user.id}`);
+  deleteUser(user) {
+    const index = this.users.indexOf(user.id);
+    this.userService.deleteUser(index);
+    // console.log(`l'utilisateur avec l'${id} a été delete`);
   }
 
   editUser(userObject) {
@@ -62,7 +62,7 @@ export class AdminModerationComponent implements OnInit {
       height: '400px',
     });
     console.log(dialogRef);
-    dialogRef.afterClosed().subscribe(() => this.userService.getUserJson());
+    dialogRef.afterClosed().subscribe(() => this.userService.getUser());
   }
 
 }

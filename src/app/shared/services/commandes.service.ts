@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { Commandes } from './../models/commandes';
+import { commandeMock } from './../../../assets/commandeMock.mock';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,9 +7,9 @@ import { Injectable } from '@angular/core';
 })
 export class CommandesService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
 
-  public getCommandeJson() {
-    return this.httpClient.get('../../../assets/commande.json');
+  public getAllCommande(): Commandes[] {
+    return commandeMock;
   }
 }

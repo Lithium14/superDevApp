@@ -1,4 +1,6 @@
-export const users = [
+import { User } from './../app/shared/models/user';
+
+export const usersMock: User[] = [
   {
     id: 'BFFF8E3D-C004-4751-A31B-E73324265DA6',
     'first-name': 'Zaiden',
@@ -298,89 +300,5 @@ export const users = [
     'first-name': 'Quincy',
     'last-name': 'Summers',
     groupe: 'NEPLI'
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
-  },
-  {
-    id: '',
-    'first-name': '',
-    'last-name': '',
-    groupe: ''
   }
 ];
