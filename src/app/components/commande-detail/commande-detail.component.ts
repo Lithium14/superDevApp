@@ -24,8 +24,8 @@ export class CommandeDetailComponent implements OnInit {
   first;
   last;
   idProduct;
-itemProduct;
-itemPrice;
+  itemProduct;
+  itemPrice;
   ngOnInit() {
     this.getProduct();
     this.getUser();
@@ -48,10 +48,9 @@ itemPrice;
     return this.last + ' ' + this.first;
   }
 
-  getPriceTotHT(index: number) {
+  getPriceTotHT() {
     let priceTotal = 0;
     let searchItem;
-    const arr = [];
     for (let i = 0; i < this.products.length; i++) {
       searchItem = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
       priceTotal += this.commande.quotation[i].quantity * this.products[searchItem].price;
