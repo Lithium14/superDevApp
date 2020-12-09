@@ -32,11 +32,11 @@ export class CommandeDetailComponent implements OnInit {
   }
 
   getProduct() {
-    this.productService.getProductJson().subscribe((data: Product[]) => this.products = data);
+    // this.productService.getAllProduct().subscribe((data: Product[]) => this.products = data);
   }
 
   getUser() {
-    this.userService.getUserJson().subscribe((data: User[]) => this.users = data);
+    this.userService.getUser().subscribe((data: User[]) => this.users = data);
   }
 
   getLastAndFirstName() {

@@ -1,3 +1,4 @@
+import { usersMock } from './../../../assets/usersMock.mock';
 
 import { AdminUserFormComponent } from './../admin-user-form/admin-user-form.component';
 import { Component, Input, OnInit } from '@angular/core';
@@ -35,8 +36,10 @@ export class AdminModerationComponent implements OnInit {
     this.getUsers();
   }
 
-  getUsers() {
-    this.users = this.userService.getUser();
+  getUsers(): void {
+    this.userService.getUser().subscribe( users => {
+      this.users = users;
+    })
   }
 
   showModalForm() {
@@ -47,10 +50,9 @@ export class AdminModerationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => this.userService.getUser());
   }
 
-  deleteUser(user) {
-    const index = this.users.indexOf(user.id);
-    this.userService.deleteUser(index);
-    // console.log(`l'utilisateur avec l'${id} a été delete`);
+  deleteUser(user: User): void {
+    this.users = this.users.filter(h => h !== user);
+    this.userService.deleteUser(user).subscribe();
   }
 
   editUser(userObject) {

@@ -1,30 +1,47 @@
 import { usersMock } from './../../../assets/usersMock.mock';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  constructor() {}
+  private baseUrl = 'api/users'
+
+  constructor(private httpClient: HttpClient ) {}
 
 
 
-  getUser(): User[] {
-    return usersMock;
+  getUser(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.baseUrl)
+    .pipe(
+      tap(
+        data => console.log('All: ' + JSON.stringify(data))
+      )
+    );
   }
+
+
+  getUserById(id: number): Observable<User> {
+    const url = `${this.createUser}/${id}`;
+    return this.httpClient.get<User>(url);
+  }
+
 
   createUser(newUser: User) {
     usersMock.push(newUser);
   }
 
-  updateUser() {}
+  updateUser(user: User): Observable<User> {
+    return this.httpClient.put<User>(this.baseUrl, user)
+  }
 
-
-  deleteUser(index) {
-    usersMock.splice(index, 1);
-    console.log(usersMock[index], 'mock index');
-    console.log(usersMock, 'Tableau de mock');
+  deleteUser(user: User): Observable<User> {
+    const url = `${this.createUser}/${user.id}`;
+    return this.httpClient.delete<User>(this.baseUrl);
   }
 }

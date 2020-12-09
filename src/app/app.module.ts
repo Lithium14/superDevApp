@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { inMemoryDataService } from './shared/services/in-memory-data.service';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModerationComponent } from './pages/admin-moderation/admin-moderation.component';
@@ -37,6 +41,7 @@ import { CommandeDetailComponent } from './components/commande-detail/commande-d
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(inMemoryDataService, { dataEncapsulation: false}),
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,

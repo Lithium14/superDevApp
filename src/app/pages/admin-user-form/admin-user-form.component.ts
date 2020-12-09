@@ -63,16 +63,16 @@ export class AdminUserFormComponent implements OnInit {
     this.getGroupe = this.discountService.getAllDiscount();
   }
 
-  onUserFormSubmit(id) {
-    const newUser: User = this.userForm.value;
-    if (this.editMode) {
-      this.userService.updateUser(id, newUser);
-      console.log('L\'utilisateur a été modifié');
-    } else {
-      this.userService.createUser(newUser);
+  // onUserFormSubmit(id) {
+  //   const newUser: User = this.userForm.value;
+  //   if (this.editMode) {
+  //     this.userService.updateUser(id, newUser);
+  //     console.log('L\'utilisateur a été modifié');
+  //   } else {
+  //     this.userService.createUser(newUser);
 
-    }
-  }
+  //   }
+  // }
 
   onReset() {
     this.userForm.reset();

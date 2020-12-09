@@ -13,14 +13,14 @@ export class UserDiscountComponent implements OnInit {
   constructor(private discountService: DiscountService) { }
 
   ngOnInit() {
-    this.getDiscountByGroup();
+    // this.getDiscountByGroup();
   }
 
-  getDiscountByGroup() {
-    this.discountService
-    .getDiscountJson()
-    .subscribe((data: Discount[]) => this.discounts = data);
-  }
+  // getDiscountByGroup() {
+  //   this.discountService
+  //   .getDiscountJson()
+  //   .subscribe((data: Discount[]) => this.discounts = data);
+  // }
 
 
 }
