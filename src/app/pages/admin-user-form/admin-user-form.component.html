@@ -38,7 +38,7 @@
       </mat-form-field>
 
       <mat-select placeholder="Sélectionnez un groupe" formControlName="groupe" >
-        <mat-option *ngFor="let groupe of getGroupe; let i = index">{{groupe.groupe}}</mat-option>
+        <mat-option *ngFor="let groupe of groupes; let i = index">{{groupe.groupe}}</mat-option>
       </mat-select>
 
   </div>

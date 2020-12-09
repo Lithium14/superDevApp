@@ -38,8 +38,7 @@ export class AdminUserFormComponent implements OnInit {
   userForm: FormGroup;
   editMode = false;
   libelle = 'Créer';
-  getGroupe: Discount[] = [];
-  defaultSelected = this.getGroupe[0];
+  groupes: Discount[] = [];
 
 
 
@@ -59,20 +58,13 @@ export class AdminUserFormComponent implements OnInit {
   }
 
 
-  getGroupeOfDiscount() {
-    this.getGroupe = this.discountService.getAllDiscount();
+  getGroupeOfDiscount(): void {
+    this.discountService.getAllDiscount().subscribe(groupes => console.log(groupes))
   }
 
-  // onUserFormSubmit(id) {
-  //   const newUser: User = this.userForm.value;
-  //   if (this.editMode) {
-  //     this.userService.updateUser(id, newUser);
-  //     console.log('L\'utilisateur a été modifié');
-  //   } else {
-  //     this.userService.createUser(newUser);
+  onUserFormSubmit(id) {
 
-  //   }
-  // }
+  }
 
   onReset() {
     this.userForm.reset();

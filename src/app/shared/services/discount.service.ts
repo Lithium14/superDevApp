@@ -1,15 +1,24 @@
-import { discountMock } from './../../../assets/discountMock.mock';
+import { Observable } from 'rxjs';
 import { Discount } from './../models/discount';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiscountService {
 
-  constructor() { }
+  private baseUrl = 'api/discounts'
 
-  getAllDiscount(): Discount[] {
-    return discountMock;
+  constructor(private httpClient: HttpClient) { }
+
+  getAllDiscount(): Observable<Discount[]> {
+    return this.httpClient.get<Discount[]>(this.baseUrl)
+    .pipe(
+      tap(
+        data => console.log('All: ' + JSON.stringify(data))
+      )
+    );
   }
 }

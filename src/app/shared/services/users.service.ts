@@ -1,7 +1,6 @@
-import { usersMock } from './../../../assets/usersMock.mock';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'
 
@@ -32,8 +31,8 @@ export class UsersService {
   }
 
 
-  createUser(newUser: User) {
-    usersMock.push(newUser);
+  createUser(newUser: User): Observable<User> {
+    return this.httpClient.post<User>(this.baseUrl, newUser);
   }
 
   updateUser(user: User): Observable<User> {

@@ -1,15 +1,22 @@
-import { productsMock } from './../../../assets/productsMock.mock';
 import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() { }
+  private baseUrl = 'api/products'
+  constructor(private httpClient: HttpClient) { }
 
-  getAllProduct(): Product[] {
-    return productsMock;
+  getAllProduct(): Observable<Product[]>{
+    return this.httpClient.get<Product[]>(this.baseUrl)
+    .pipe(
+      tap(
+        data => console.log('All: ' + JSON.stringify(data))
+      )
+    );
   }
 }
