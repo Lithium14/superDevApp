@@ -73,19 +73,19 @@ export class AdminModerationComponent implements OnInit {
   }
 
   editUser(userObject) {
-    // const dialogRef = this.dialog.open(AdminUserFormComponent, {
-    //   data: userObject,
-    //   width: '800px',
-    //   height: '400px',
-    // });
+    const dialogRef = this.dialog.open(AdminUserFormComponent, {
+      data: userObject,
+      width: '800px',
+      height: '400px',
+    });
 
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if(result === 1) {
-    //     const foundIndex = this.users.findIndex((w) => w.id === userObject.id);
-    //     this.users.splice(foundIndex, 1, userObject)
-    //     this.getUsers();
-    //   }
-    // })
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result === 1) {
+        const foundIndex = this.users.findIndex((w) => w.id === userObject.id);
+        this.users.splice(foundIndex, 1, userObject)
+        this.getUsers();
+      }
+    })
   }
 
 }

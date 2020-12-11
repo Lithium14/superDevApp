@@ -68,7 +68,7 @@ export class AdminUserFormComponent implements OnInit {
     } else {
         save$ = this.userService.updateUser(this.userForm.value);
     }
-    save$.subscribe((result) => this.dialogRef.close(result))
+    save$.subscribe((result) => this.dialogRef.close(result));
   }
 
   onReset() {
