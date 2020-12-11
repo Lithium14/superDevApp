@@ -14,14 +14,14 @@ export class CommandesComponent implements OnInit {
   constructor(private commandesService: CommandesService) { }
 
   ngOnInit() {
-    // this.getCommandes();
+    this.getCommandes();
   }
 
-  // getCommandes() {
-  //   this.commandesService.getAllCommande().subscribe((data: Commandes[]) => {
-  //    this.commande = data;
-  //   });
-  // }
+  getCommandes() {
+    this.commandesService.getAllCommande().subscribe((data: Commandes[]) => {
+     this.commande = data;
+    });
+  }
 
   onCheckDetails(data: any) {
     this.commandeDetail = data;

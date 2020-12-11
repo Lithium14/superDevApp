@@ -1,10 +1,14 @@
-import { usersMock } from './../../../assets/usersMock.mock';
+import { Discount } from './../../shared/models/discount';
+import { User } from '../../shared/models/user';
+
+import { DiscountService } from './../../shared/services/discount.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 
 import { AdminUserFormComponent } from './../admin-user-form/admin-user-form.component';
 import { Component, Input, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/shared/services/users.service';
-import { User } from '../../shared/models/user';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-admin-moderation',
@@ -14,10 +18,14 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 export class AdminModerationComponent implements OnInit {
 
   @Input() user: User;
+  @Input() discount : Discount;
   users: User[] = [];
+  discounts: Discount[] = [];
+  dataSource;
 
   constructor(
     private userService: UsersService,
+    private discountService: DiscountService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AdminUserFormComponent>,
   ) { }
@@ -27,6 +35,7 @@ export class AdminModerationComponent implements OnInit {
     'lastName',
     'firstName',
     'groupe',
+
     'delete',
     'edit'
   ];
@@ -34,6 +43,7 @@ export class AdminModerationComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.getDiscounts();
   }
 
   getUsers(): void {
@@ -42,13 +52,20 @@ export class AdminModerationComponent implements OnInit {
     })
   }
 
+  getDiscounts(): void {
+    this.discountService.getAllDiscount().subscribe( discounts => {
+      this.discounts = discounts;
+    })
+  }
+
   showModalForm() {
     const dialogRef = this.dialog.open(AdminUserFormComponent, {
         width: '800px',
         height: '400px',
     });
-    dialogRef.afterClosed().subscribe(() => this.userService.getUser());
+    dialogRef.afterClosed().subscribe(() => this.getUsers())
   }
+
 
   deleteUser(user: User): void {
     this.users = this.users.filter(h => h !== user);
@@ -56,15 +73,19 @@ export class AdminModerationComponent implements OnInit {
   }
 
   editUser(userObject) {
-    const index = this.users.findIndex((w) => w.id === userObject.idUser);
-    this.users[index] = userObject;
-    const dialogRef = this.dialog.open(AdminUserFormComponent, {
-      data: userObject,
-      width: '800px',
-      height: '400px',
-    });
-    console.log(dialogRef);
-    dialogRef.afterClosed().subscribe(() => this.userService.getUser());
+    // const dialogRef = this.dialog.open(AdminUserFormComponent, {
+    //   data: userObject,
+    //   width: '800px',
+    //   height: '400px',
+    // });
+
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if(result === 1) {
+    //     const foundIndex = this.users.findIndex((w) => w.id === userObject.id);
+    //     this.users.splice(foundIndex, 1, userObject)
+    //     this.getUsers();
+    //   }
+    // })
   }
 
 }

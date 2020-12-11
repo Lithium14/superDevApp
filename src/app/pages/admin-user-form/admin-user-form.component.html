@@ -37,9 +37,12 @@
         matInput placeholder="Your LastName">
       </mat-form-field>
 
-      <mat-select placeholder="Sélectionnez un groupe" formControlName="groupe" >
-        <mat-option *ngFor="let groupe of groupes; let i = index">{{groupe.groupe}}</mat-option>
-      </mat-select>
+      <div>
+        <mat-select placeholder="Sélectionnez un groupe" formControlName="groupe" >
+          <mat-option *ngFor="let groupe of groupes; let i = index" [value]="groupe.groupe">{{groupe.groupe}}</mat-option>
+        </mat-select>
+      </div>
+
 
   </div>
 
@@ -48,7 +51,7 @@
 
   <!-- Validation et reset du formulaire  -->
   <div class="example-button-row">
-    <button mat-raised-button type="submit">{{ libelle }}</button>
+    <button mat-raised-button [mat-dialog-close]="1" type="submit">{{ libelle }}</button>
 
     <button type="button" mat-raised-button (click)="onReset()">Reset</button>
   </div>

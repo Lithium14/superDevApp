@@ -4,11 +4,15 @@
 
       <!-- référence  -->
       <div>
-        <span>Référence : {{ commande['_id'] }}</span><br>
+        <!-- Nom et prénom du client -->
         <span> Nom & prénom : {{getLastAndFirstName()}}</span>
+
+        <!-- Référence de la facture _id -->
+        <span>Référence : {{ commande['_id'] }}</span><br>
       </div>
 
       <div>
+        <!-- Un produit par ligne -->
         <span> {{getProductByName()}} </span>
       </div>
 

@@ -15,7 +15,7 @@ export class ProductService {
     return this.httpClient.get<Product[]>(this.baseUrl)
     .pipe(
       tap(
-        data => console.log('All: ' + JSON.stringify(data))
+        _ => console.log('Fetched Product')
       )
     );
   }

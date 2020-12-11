@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,22 @@ import { tap } from 'rxjs/operators'
 export class UsersService {
 
   private baseUrl = 'api/users'
+
+  private log(log: string) {
+    console.info(log)
+  }
+
+  private handleError<T>(operation='operation', result?: T) {
+    return (error:any): Observable<T> => {
+      console.log(error);
+      console.log(`${operation} failed : ${error.message}`);
+
+      return of(result as T)
+    }
+  }
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private httpClient: HttpClient ) {}
 
@@ -19,28 +35,39 @@ export class UsersService {
     return this.httpClient.get<User[]>(this.baseUrl)
     .pipe(
       tap(
-        data => console.log('All: ' + JSON.stringify(data))
-      )
+        _ => this.log('fetch user')
+      ),
+      catchError(this.handleError(`get Pokemons`, []))
     );
   }
 
-
-  getUserById(id: number): Observable<User> {
-    const url = `${this.createUser}/${id}`;
-    return this.httpClient.get<User>(url);
-  }
-
-
-  createUser(newUser: User): Observable<User> {
-    return this.httpClient.post<User>(this.baseUrl, newUser);
+  createUser(user: User): Observable<User> {
+    return this.httpClient.post<User>(this.baseUrl, user, this.httpOptions)
+    .pipe(
+      tap(
+        (newUser: User) => this.log(`added user w/ id=${newUser.id}`) ),
+        catchError(this.handleError<User>('User add')
+      )
+    )
   }
 
   updateUser(user: User): Observable<User> {
-    return this.httpClient.put<User>(this.baseUrl, user)
+    return this.httpClient.put<User>(this.baseUrl, user, this.httpOptions)
+    .pipe(
+      tap(
+        _ => this.log(`updated user id=${user.id}`)
+      )
+    )
   }
 
-  deleteUser(user: User): Observable<User> {
-    const url = `${this.createUser}/${user.id}`;
-    return this.httpClient.delete<User>(this.baseUrl);
+  deleteUser(user: User | string): Observable<User> {
+    const id = typeof user === 'string' ? user : user.id
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.delete<User>(this.baseUrl, this.httpOptions).pipe(
+      tap(
+        _tap => this.log(`deleted user id=${id}`)
+      ),
+      catchError(this.handleError<User>('deleted User'))
+    )
   }
 }

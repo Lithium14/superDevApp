@@ -12,7 +12,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./commande-detail.component.scss']
 })
 export class CommandeDetailComponent implements OnInit {
-  constructor(private productService: ProductService, private userService: UsersService, private cS: CommandesService) { }
+
+
+  constructor
+  (
+    private productService: ProductService,
+    private userService: UsersService,
+    private cS: CommandesService
+  ) { }
 
 
   priceTotalHT: number;
@@ -26,13 +33,15 @@ export class CommandeDetailComponent implements OnInit {
   idProduct;
   itemProduct;
   itemPrice;
+
+
   ngOnInit() {
     this.getProduct();
     this.getUser();
   }
 
   getProduct() {
-    // this.productService.getAllProduct().subscribe((data: Product[]) => this.products = data);
+    this.productService.getAllProduct().subscribe((data: Product[]) => this.products = data);
   }
 
   getUser() {
@@ -69,8 +78,9 @@ export class CommandeDetailComponent implements OnInit {
       this.idProduct = this.products[searchPrice].id;
       this.itemProduct = this.products[searchPrice].item;
       this.itemPrice = this.products[searchPrice].price;
+
       return 'Référence : ' + this.idProduct + '\nNom du produit : '
-      + this.itemProduct + '\n ' + ' Prix : ' + this.itemPrice + ' Quantité : ' + this.commande.quotation[i].quantity;
+        + this.itemProduct + '\n ' + ' Prix : ' + this.itemPrice + ' Quantité : ' + this.commande.quotation[i].quantity;
     }
 
   }

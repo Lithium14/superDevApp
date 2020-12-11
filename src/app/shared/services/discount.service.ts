@@ -17,7 +17,7 @@ export class DiscountService {
     return this.httpClient.get<Discount[]>(this.baseUrl)
     .pipe(
       tap(
-        data => console.log('All: ' + JSON.stringify(data))
+        data => console.log('fetch products')
       )
     );
   }

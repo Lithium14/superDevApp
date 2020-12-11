@@ -36,34 +36,39 @@ export class AdminUserFormComponent implements OnInit {
   }
 
   userForm: FormGroup;
-  editMode = false;
+  editMode = true;
   libelle = 'Créer';
   groupes: Discount[] = [];
-
 
 
   ngOnInit() {
     this.getGroupeOfDiscount();
 
-    // this.userForm.patchValue({
-    //   id: this.data.id,
-    //   firstname: this.data['first-name'],
-    //   lastname: this.data['last-name'],
-    //   groupe: this.data.groupe
-    // });
-    // if (this.data.id) {
-    //   this.libelle = 'Modifier';
-    //   this.editMode = false;
-    // }
+    this.userForm.patchValue({
+      id: this.data.id,
+      'first-name': this.data['first-name'],
+      'last-name': this.data['last-name'],
+      groupe: this.data.groupe
+    });
+    if (this.data.id) {
+      this.libelle = 'Modifier';
+      this.editMode = false;
+    }
   }
 
 
   getGroupeOfDiscount(): void {
-    this.discountService.getAllDiscount().subscribe(groupes => console.log(groupes))
+    this.discountService.getAllDiscount().subscribe(groupes => this.groupes = groupes)
   }
 
-  onUserFormSubmit(id) {
-
+  onUserFormSubmit(): void {
+    let save$;
+    if(this.editMode) {
+      save$ = this.userService.createUser(this.userForm.value)
+    } else {
+        save$ = this.userService.updateUser(this.userForm.value);
+    }
+    save$.subscribe((result) => this.dialogRef.close(result))
   }
 
   onReset() {
