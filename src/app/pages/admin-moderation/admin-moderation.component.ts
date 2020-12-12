@@ -18,11 +18,9 @@ export class AdminModerationComponent implements OnInit {
   @Input() user: User;
   @Input() discount: Discount;
   users: User[] = [];
-  discounts: Discount[] = [];
 
   constructor(
     private userService: UsersService,
-    private discountService: DiscountService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AdminUserFormComponent>,
   ) { }

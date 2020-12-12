@@ -1,13 +1,11 @@
 import { Discount } from './../../shared/models/discount';
 import { DiscountService } from './../../shared/services/discount.service';
-import { CommandesService } from './../../shared/services/commandes.service';
 import { UsersService } from './../../shared/services/users.service';
 import { ProductService } from './../../shared/services/product.service';
 import { User } from './../../shared/models/user';
 import { Product } from './../../shared/models/product';
 import { Commandes } from './../../shared/models/commandes';
 import { Component, Input, OnInit } from '@angular/core';
-import { NgSwitchCase } from '@angular/common';
 
 @Component({
   selector: 'app-commande-detail',
@@ -77,7 +75,8 @@ export class CommandeDetailComponent implements OnInit {
     return priceTotHt.reduce((acc, val) => acc += val.price, 0);
   }
 
-  getPriceWithRemise(index: number) {
+  // Get Price With remise per group
+  getPriceWithRemise() {
     const priceTot = this.getPriceTotHT();
     let priceWithRemise = 0;
     const searchIndex = this.users.findIndex((x) => x.id === this.commande.userId );
@@ -87,12 +86,14 @@ export class CommandeDetailComponent implements OnInit {
     return priceWithRemise;
   }
 
-  // getPriceWithTVA() {
-  //   let priceTot = this.getPriceTotHT();
-  //   priceTot = priceTot + this.getPriceTotHT() * 0.2;
-  //   return priceTot;
+  // Get Price total after tva 20%
+  getPriceWithTVA() {
+    const priceWithRemise = this.getPriceWithRemise();
+    let priceWithTva = 0;
+    priceWithTva = priceWithRemise + this.getPriceWithRemise() * 0.2;
+    return priceWithTva;
 
-  // }
+  }
 
 
 }

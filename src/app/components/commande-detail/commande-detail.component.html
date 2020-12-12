@@ -1,6 +1,7 @@
 <div class="container">
-  <div>
+  <div *ngIf="this.commande">
     <table>
+
       <tr>
         <th>Nom & prénom</th>
         <th>Référence de la commande</th>
@@ -9,6 +10,7 @@
         <th>Quantité acheté</th>
         <th>Prix du produit</th>
       </tr>
+
       <tr *ngFor="let product of getProductByName(); let i = index ">
         <th>{{this.getLastAndFirstName()}} </th>
         <th>{{ this.commande._id }}</th>
@@ -17,6 +19,7 @@
         <th> {{commande.quotation[i].quantity}} </th>
         <th> {{product.price}}€ </th>
       </tr>
+
       <tr>
         <th></th>
         <th></th>
@@ -25,6 +28,7 @@
         <th class="priceTotal">PRIX TOTAL HT :</th>
         <th class="priceTotal">{{getPriceTotHT()}} €</th>
       </tr>
+
       <tr>
         <th></th>
         <th></th>
@@ -33,26 +37,16 @@
         <th class="priceTotal">PRIX AVEC REMISE :</th>
         <th class="priceTotal">{{getPriceWithRemise()}} €</th>
       </tr>
+
       <tr>
         <th></th>
         <th></th>
         <th></th>
         <th></th>
         <th class="priceTotal">PRIX TOTAL TTC :</th>
-        <th class="priceTotal">{{getPriceTotHT()}} €</th>
+        <th class="priceTotal">{{getPriceWithTVA()}} €</th>
       </tr>
+
     </table>
   </div>
-
-
-    <!-- total avec la remise client -->
-        <div >
-          <!-- <span>Total avec la remise : {{getPriceTotHT()}}</span> -->
-        </div>
-
-        <div >
-          <!-- <span>Prix Total TTC : {{getPriceWithTVA()}}</span> -->
-        </div>
-
-    <!-- total TTC  -->
 </div>
