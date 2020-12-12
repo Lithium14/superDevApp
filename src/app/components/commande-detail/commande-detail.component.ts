@@ -62,18 +62,10 @@ export class CommandeDetailComponent implements OnInit {
     return search;
   }
 
-  // getPriceTotHT() {
-  //   let priceTotal = 0;
-  //   let searchItem;
-  //   for (let i = 0; i < this.products.length; i++) {
-  //     searchItem = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
-  //     priceTotal += this.commande.quotation[i].quantity * this.products[searchItem].price;
-  //     console.log(priceTotal);
-  //   }
-
-  //   return priceTotal;
-
-  // }
+  getPriceTotHT() {
+    const priceTotHt = this.getProductByName();
+    return priceTotHt.reduce((acc, val) => acc += val.price, 0);
+  }
 
 
 

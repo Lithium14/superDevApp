@@ -1,30 +1,33 @@
 <div class="container">
   <div>
-    <div>
-      <table>
-        <tr>
-          <th>Nom & prénom</th>
-          <th>Référence de la commande</th>
-          <th>Référence du produit</th>
-          <th>Nom du produit</th>
-          <th>Quantité acheté</th>
-          <th>Prix du produit</th>
-        </tr>
-        <tr *ngFor="let product of getProductByName(); let i = index ">
-          <th>{{this.getLastAndFirstName()}} </th>
-          <th>{{ this.commande._id }}</th>
-          <th> {{product.id}} </th>
-          <th> {{product.item}} </th>
-          <th> {{commande.quotation[i].quantity}} </th>
-          <th> {{product.price}}€ </th>
-        </tr>
-      </table>
-    </div>
+    <table>
+      <tr>
+        <th>Nom & prénom</th>
+        <th>Référence de la commande</th>
+        <th>Référence du produit</th>
+        <th>Nom du produit</th>
+        <th>Quantité acheté</th>
+        <th>Prix du produit</th>
+      </tr>
+      <tr *ngFor="let product of getProductByName(); let i = index ">
+        <th>{{this.getLastAndFirstName()}} </th>
+        <th>{{ this.commande._id }}</th>
+        <th> {{product.id}} </th>
+        <th> {{product.item}} </th>
+        <th> {{commande.quotation[i].quantity}} </th>
+        <th> {{product.price}}€ </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th class="priceTotal">PRIX TOTAL HT :</th>
+        <th class="priceTotal">{{getPriceTotHT()}} €</th>
+      </tr>
+    </table>
   </div>
-        <!-- total HT -->
-        <div >
-          <!-- <span>Prix total HT : {{getPriceTotHT()}}</span> -->
-        </div>
+
 
     <!-- total avec la remise client -->
         <div >
