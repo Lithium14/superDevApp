@@ -60,7 +60,7 @@ export class CommandeDetailComponent implements OnInit {
 
   // Get Firstname and lastName of User
   getLastAndFirstName() {
-    if (this.findIndexUser()) {
+    if (this.findIndexUser() > -1) {
       this.last = this.users[this.findIndexUser()]['last-name'];
       this.first = this.users[this.findIndexUser()]['first-name'];
     }
