@@ -52,12 +52,17 @@ export class CommandeDetailComponent implements OnInit {
     this.discountService.getAllDiscount().subscribe((data: Discount[]) => this.discounts = data);
   }
 
+  // Method to find Index User
+  findIndexUser(): number {
+    const searchUser =  this.users.findIndex((x) => x.id === this.commande.userId );
+    return searchUser;
+  }
+
   // Get Firstname and lastName of User
   getLastAndFirstName() {
-    const searchUser =  this.users.findIndex((x) => x.id === this.commande.userId );
-    if (searchUser >= 0) {
-      this.last = this.users[searchUser]['last-name'];
-      this.first = this.users[searchUser]['first-name'];
+    if (this.findIndexUser()) {
+      this.last = this.users[this.findIndexUser()]['last-name'];
+      this.first = this.users[this.findIndexUser()]['first-name'];
     }
     return this.last + ' ' + this.first;
   }
@@ -79,8 +84,7 @@ export class CommandeDetailComponent implements OnInit {
   getPriceWithRemise() {
     const priceTot = this.getPriceTotHT();
     let priceWithRemise = 0;
-    const searchIndex = this.users.findIndex((x) => x.id === this.commande.userId );
-    const findUserInGroup = this.users[searchIndex].groupe;
+    const findUserInGroup = this.users[this.findIndexUser()].groupe;
     const searchPerCent = this.discounts.filter(x => x.groupe === findUserInGroup);
     priceWithRemise = priceTot - priceTot * (searchPerCent[0]['discount-percent'] / 100);
     return priceWithRemise;
@@ -91,7 +95,7 @@ export class CommandeDetailComponent implements OnInit {
     const priceWithRemise = this.getPriceWithRemise();
     let priceWithTva = 0;
     priceWithTva = priceWithRemise + this.getPriceWithRemise() * 0.2;
-    return priceWithTva;
+    return priceWithTva.toFixed(2);
 
   }
 
