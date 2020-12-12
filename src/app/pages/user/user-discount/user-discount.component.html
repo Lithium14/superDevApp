@@ -1,12 +1,23 @@
 <div class="container">
   <h1>Profitez de vos remises suivant votre groupe !</h1>
-  <table>
-    <div *ngFor="let discount of discounts">
-      <tr>Groupe</tr>
-      <td>{{ discount.groupe }}</td>
-      <tr>Pourcentage de réduction</tr>
-      <td>{{discount['discount-percent']}} %</td>
-      <hr>
-    </div>
+
+  <table mat-table [dataSource]="discounts" class="mat-elevation-z8">
+
+    <!-- Groupe Column -->
+    <ng-container matColumnDef="Groupe">
+      <th mat-header-cell *matHeaderCellDef> Groupe </th>
+      <td mat-cell *matCellDef="let discount"> {{ discount.groupe }} </td>
+    </ng-container>
+
+    <!-- Reduction Column -->
+    <ng-container matColumnDef="Réduction">
+      <th mat-header-cell *matHeaderCellDef> Réduction </th>
+      <td mat-cell *matCellDef="let discount"> {{ discount['discount-percent'] }}%</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
 </div>
+

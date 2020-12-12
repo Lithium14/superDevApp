@@ -1,6 +1,6 @@
 import { Discount } from './../../../shared/models/discount';
 import { DiscountService } from './../../../shared/services/discount.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-discount',
@@ -10,17 +10,21 @@ import { Component, OnInit } from '@angular/core';
 export class UserDiscountComponent implements OnInit {
 
   discounts: Discount[] = [];
+  @Input() discount: Discount;
   constructor(private discountService: DiscountService) { }
-
+  displayedColumns = [
+    'Groupe',
+    'Réduction'
+  ];
   ngOnInit() {
-    // this.getDiscountByGroup();
+    this.getDiscountByGroup();
   }
 
-  // getDiscountByGroup() {
-  //   this.discountService
-  //   .getDiscountJson()
-  //   .subscribe((data: Discount[]) => this.discounts = data);
-  // }
+  getDiscountByGroup() {
+    this.discountService
+    .getAllDiscount()
+    .subscribe((data: Discount[]) => this.discounts = data);
+  }
 
 
 }

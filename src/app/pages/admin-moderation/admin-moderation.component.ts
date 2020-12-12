@@ -7,8 +7,6 @@ import { UsersService } from 'src/app/shared/services/users.service';
 import { AdminUserFormComponent } from './../admin-user-form/admin-user-form.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-admin-moderation',
@@ -18,10 +16,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class AdminModerationComponent implements OnInit {
 
   @Input() user: User;
-  @Input() discount : Discount;
+  @Input() discount: Discount;
   users: User[] = [];
   discounts: Discount[] = [];
-  dataSource;
 
   constructor(
     private userService: UsersService,
@@ -35,7 +32,6 @@ export class AdminModerationComponent implements OnInit {
     'lastName',
     'firstName',
     'groupe',
-
     'delete',
     'edit'
   ];
@@ -43,19 +39,12 @@ export class AdminModerationComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
-    this.getDiscounts();
   }
 
   getUsers(): void {
     this.userService.getUser().subscribe( users => {
       this.users = users;
-    })
-  }
-
-  getDiscounts(): void {
-    this.discountService.getAllDiscount().subscribe( discounts => {
-      this.discounts = discounts;
-    })
+    });
   }
 
   showModalForm() {
@@ -63,7 +52,7 @@ export class AdminModerationComponent implements OnInit {
         width: '800px',
         height: '400px',
     });
-    dialogRef.afterClosed().subscribe(() => this.getUsers())
+    dialogRef.afterClosed().subscribe(() => this.getUsers());
   }
 
 
@@ -80,12 +69,12 @@ export class AdminModerationComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if(result === 1) {
+      if (result === 1) {
         const foundIndex = this.users.findIndex((w) => w.id === userObject.id);
-        this.users.splice(foundIndex, 1, userObject)
+        this.users.splice(foundIndex, 1, userObject);
         this.getUsers();
       }
-    })
+    });
   }
 
 }

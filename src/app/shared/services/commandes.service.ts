@@ -15,7 +15,7 @@ export class CommandesService {
     return this.httpClient.get<Commandes[]>(this.baseUrl)
     .pipe(
       tap(
-        data => console.log('All: ' + JSON.stringify(data))
+        data => console.log('fetch commandes')
       )
     );
   }

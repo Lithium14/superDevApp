@@ -14,20 +14,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CommandeDetailComponent implements OnInit {
 
 
-  constructor
-  (
+  constructor(
     private productService: ProductService,
     private userService: UsersService,
-    private cS: CommandesService
   ) { }
 
 
   priceTotalHT: number;
-  commandes: Commandes[] = [];
   @Input() commande: Commandes;
   products: Product[];
   users: User[];
-  searchQuantity;
   first;
   last;
   idProduct;
@@ -40,14 +36,17 @@ export class CommandeDetailComponent implements OnInit {
     this.getUser();
   }
 
+  // Fetch Product
   getProduct() {
     this.productService.getAllProduct().subscribe((data: Product[]) => this.products = data);
   }
 
+  // Fetch User
   getUser() {
     this.userService.getUser().subscribe((data: User[]) => this.users = data);
   }
 
+  // Get Firstname and lastName of User
   getLastAndFirstName() {
     const searchUser =  this.users.findIndex((x) => x.id === this.commande.userId );
     if (searchUser >= 0) {
@@ -57,33 +56,26 @@ export class CommandeDetailComponent implements OnInit {
     return this.last + ' ' + this.first;
   }
 
-  getPriceTotHT() {
-    let priceTotal = 0;
-    let searchItem;
-    for (let i = 0; i < this.products.length; i++) {
-      searchItem = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
-      priceTotal += this.commande.quotation[i].quantity * this.products[searchItem].price;
-      console.log(priceTotal);
-    }
-
-    return priceTotal;
-
-  }
 
   getProductByName() {
-    let searchPrice;
-    for (let i = 0; i < this.products.length; i++) {
-      searchPrice = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
-
-      this.idProduct = this.products[searchPrice].id;
-      this.itemProduct = this.products[searchPrice].item;
-      this.itemPrice = this.products[searchPrice].price;
-
-      return 'Référence : ' + this.idProduct + '\nNom du produit : '
-        + this.itemProduct + '\n ' + ' Prix : ' + this.itemPrice + ' Quantité : ' + this.commande.quotation[i].quantity;
-    }
-
+    const search = this.products.filter(val => this.commande.quotation.some(role => val.id.includes(role.productId)));
+    return search;
   }
+
+  // getPriceTotHT() {
+  //   let priceTotal = 0;
+  //   let searchItem;
+  //   for (let i = 0; i < this.products.length; i++) {
+  //     searchItem = this.products.findIndex((x) => x.id === this.commande.quotation[i].productId);
+  //     priceTotal += this.commande.quotation[i].quantity * this.products[searchItem].price;
+  //     console.log(priceTotal);
+  //   }
+
+  //   return priceTotal;
+
+  // }
+
+
 
   // getPriceWithRemise() {
 

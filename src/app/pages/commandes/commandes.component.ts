@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommandesComponent implements OnInit {
 
-  commande: Commandes[];
+  commande: Commandes[] = [];
   commandeDetail: Commandes;
   constructor(private commandesService: CommandesService) { }
 
@@ -23,7 +23,7 @@ export class CommandesComponent implements OnInit {
     });
   }
 
-  onCheckDetails(data: any) {
+  onCheckDetails(data: Commandes) {
     this.commandeDetail = data;
   }
 
